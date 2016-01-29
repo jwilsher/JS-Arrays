@@ -82,6 +82,8 @@ function evenFinder(nums) {
   for (var i = 0; i < nums.length; i++) {
     if (nums[i] % 2 !== 0) {
       nums.splice(i, 1);
+      i--; //this is because when you splice something out, everything else shiftsj
+           //one index down
     }
   }
   return nums;
@@ -102,6 +104,16 @@ function evenFinder(nums) {
 }
 
 evenFinder(nums);
+
+//another way.....
+function evenFinder(numbers) {
+  numbers.forEach(function(item, i) {
+    if (item % 2 !== 0) {     // with .forEach, the item is every "item" in the array that the fuction gets ran on
+      numbers.splice(i, 1);   // .forEach defines a block of code that you want to run on every item in the array
+    }
+  });
+    return numbers;
+}
 
 
 //Next problem
@@ -236,8 +248,46 @@ function addItem(list, item) {
 removeItem(myGroceryList, 'pizza');
 addItem(myGroceryList, 'tickets');
 
+
 //removeItem(myGroceryList, 'chips') --> ['pizza', 'hotpockets', 'MtnDew', 'corndogs'];
 //addItem(myGroceryList, 'Jerky') --> ['pizza', 'hotpockets', 'MtnDew', 'corndogs', 'Jerky'];
+
+
+// other ways to do it in order to avoid duplicating items....
+function removeItem(collection, item) {
+  collection.forEach(function(collectionItem, i) {
+    if (item === collectionItem) {
+      collection.splice(i, 1);
+    }
+  });
+  return collection;
+}
+
+function addItem(collection, item) {
+  for (var i = 0; i < collection.length); i++) {
+    if (collection[i] === item) {
+      return collection;
+    }
+  }
+  collection.push(item);
+  return collection;
+}
+
+//and another way....
+
+
+function addItem(collection, item) {
+  var collectionObj = {};
+  var uniqueArray = [];
+  for (var i = 0; i < collection.length; i++) {
+    collectionObj[collection[i]] = null; // making them all collection[i] to be keys in the Object
+  }
+  collectionObj[item] = null; // making our item a key to override any other keys with same name that wer in the Object
+  for (var key in collectionObj) { //this is how you iterate over the keys of an object
+    uniqueArray.push(key);  //taking all the keys and pushing them to the new array
+  }
+  return uniqueArray; //returning the new array
+}
 
 
 
@@ -285,6 +335,16 @@ function addTen(numbers) {
 }
 
 addTen(numbers);
+
+
+//another way...
+
+function addTen(ints) {
+  ints.forEach(function(int, i) {
+    ints[i] = parseInt(int) + 10; // you could just "return parseInt(int) + 10"
+  });
+  return ints;
+}
 
 
 //Next Problem
